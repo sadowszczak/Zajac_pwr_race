@@ -77,7 +77,6 @@ int findWay() {
                     if ((grid[next_y][next_x] == 0) || (grid[next_y][next_x] == 2)) {
 
                         // check that can do move or has barrier
-                        if () {
                             if (grid[next_y][next_x] == 2) {
                                 step_amount += 1;
                                 end = true;
@@ -86,7 +85,6 @@ int findWay() {
                             else{
                                 bool empty = true;
                                 for (int z = 0; z < point; z++){
-                                    //cout << z << " " << access_pole_index[z][0] << ' ' << access_pole_index[z][1] << endl;
                                     if ((access_pole[z][0] == next_x) && (access_pole[z][1] == next_y)){
                                         empty = false;
                                         break;
@@ -99,7 +97,7 @@ int findWay() {
                                     step_amount += 1;
                                 }
                             }
-                        }
+
                     }
                 }
             }
