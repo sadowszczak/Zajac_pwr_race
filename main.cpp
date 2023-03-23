@@ -64,45 +64,52 @@ int findWay() {
     bool end = false;
     int point = 1;
     int index = 0;
-    int access_pole[n * m][2];
+    int access_pole[n * m][3];
     access_pole[0][0] = start_position[0];
     access_pole[0][1] = start_position[1];
-    while(index <= point) {
-            for (int j = 0; j < sizeof(move_accept_x) / sizeof(int); j++) {
-                int next_x = access_pole[index][1] + move_accept_x[j];
-                int next_y = access_pole[index][0] + move_accept_y[j];
-                // Check if move in grid space, no outside
-                if (((0 <= next_x) && (next_x <= m)) && ((0 <= next_y) && (next_y <= n))) {
-                    //check if landing pole is empty
-                    if ((grid[next_y][next_x] == 0) || (grid[next_y][next_x] == 2)) {
-
-                        // check that can do move or has barrier
-                            if (grid[next_y][next_x] == 2) {
-                                step_amount += 1;
-                                end = true;
-                                break;
-                            }
-                            else{
-                                bool empty = true;
-                                for (int z = 0; z < point; z++){
-                                    if ((access_pole[z][0] == next_x) && (access_pole[z][1] == next_y)){
-                                        empty = false;
-                                        break;
-                                    }
-                                }
-                                if (empty){
-                                    access_pole[point][1] = next_x;
-                                    access_pole[point][0] = next_y;
-                                    point += 1;
-                                    step_amount += 1;
+    access_pole[0][2] = step_amount;
+    while (index <= point) {
+        step_amount = access_pole[index][2];
+        for (int j = 0; j < sizeof(move_accept_x) / sizeof(int); j++) {
+            int next_x = access_pole[index][1] + move_accept_x[j];
+            int next_y = access_pole[index][0] + move_accept_y[j];
+            // Check if move is in the grid space, no outside
+            if (((0 <= next_x) && (next_x < m)) && ((0 <= next_y) && (next_y < n))) {
+                // Check if landing pole is empty
+                if ((grid[next_y][next_x] == 0) || (grid[next_y][next_x] == 2)) {
+                        // Check if is on end pole
+                        if (grid[next_y][next_x] == 2) {
+                            step_amount = access_pole[index][2] + 1;
+                            end = true;
+                            index = point;
+                            break;
+                        }
+                        // Save pole for next iteration
+                        else {
+                            bool empty = true;
+                            // Check if poles was saved before
+                            for (int z = 0; z < point; z++) {
+                                if ((access_pole[z][0] == next_x) && (access_pole[z][1] == next_y)) {
+                                    empty = false;
+                                    break;
                                 }
                             }
+                            if (empty) {
+                                access_pole[point][1] = next_x;
+                                access_pole[point][0] = next_y;
+                                point += 1;
+                                access_pole[point][2] = step_amount + 1;
+                            }
+                        }
 
-                    }
+
                 }
             }
-            index += 1;
+        }
+        index += 1;
     }
+    cout << step_amount;
+    // If no way to end
     if (!end) {
         step_amount = 0;
     }
@@ -113,13 +120,13 @@ int main() {
     if (inputSizeGrid()) {
         if (inputGrid()) {
             int steps = findWay();
-                if (steps >> 0) {
-                    cout << steps;
-                } else {
-                    cout << "NIE";
-                }
+            if (steps >> 0) {
+                cout << steps;
+            } else {
+                cout << "NIE";
             }
-
         }
-        return 0;
+
     }
+    return 0;
+}
