@@ -1,0 +1,3 @@
+C:/Users/macie/CLionProjects/PWR_raceing_team/zajac/cmake-build-debug/CMakeFiles/zajac.dir
+C:/Users/macie/CLionProjects/PWR_raceing_team/zajac/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/macie/CLionProjects/PWR_raceing_team/zajac/cmake-build-debug/CMakeFiles/rebuild_cache.dir
