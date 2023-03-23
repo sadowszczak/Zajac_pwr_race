@@ -89,7 +89,7 @@ int findWay() {
                             bool empty = true;
                             // Check if poles was saved before
                             for (int z = 0; z < point; z++) {
-                                if ((access_pole[z][0] == next_x) && (access_pole[z][1] == next_y)) {
+                                if ((access_pole[z][0] == next_y) && (access_pole[z][1] == next_x)) {
                                     empty = false;
                                     break;
                                 }
@@ -108,7 +108,6 @@ int findWay() {
         }
         index += 1;
     }
-    cout << step_amount;
     // If no way to end
     if (!end) {
         step_amount = 0;
